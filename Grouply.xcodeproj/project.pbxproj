@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		08AC4893300FFA93006690D4 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 08AC4892300FFA93006690D4 /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		08AC487F300FF972006690D4 /* Grouply.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grouply.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		08AC48A830101A6D006690D4 /* Exceptions for "Grouply" folder in "Grouply" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 08AC487E300FF972006690D4 /* Grouply */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		08AC4881300FF972006690D4 /* Grouply */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				08AC48A830101A6D006690D4 /* Exceptions for "Grouply" folder in "Grouply" target */,
+			);
 			path = Grouply;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08AC4893300FFA93006690D4 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				08AC4881300FF972006690D4 /* Grouply */,
+				08AC4891300FFA93006690D4 /* Frameworks */,
 				08AC4880300FF972006690D4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +62,13 @@
 				08AC487F300FF972006690D4 /* Grouply.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		08AC4891300FFA93006690D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +91,7 @@
 			);
 			name = Grouply;
 			packageProductDependencies = (
+				08AC4892300FFA93006690D4 /* Supabase */,
 			);
 			productName = Grouply;
 			productReference = 08AC487F300FF972006690D4 /* Grouply.app */;
@@ -94,6 +121,9 @@
 			);
 			mainGroup = 08AC4876300FF972006690D4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				08AC488D300FF9CA006690D4 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 08AC4880300FF972006690D4 /* Products */;
 			projectDirPath = "";
@@ -127,6 +157,8 @@
 /* Begin XCBuildConfiguration section */
 		08AC4888300FF973006690D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 08AC4881300FF972006690D4 /* Grouply */;
+			baseConfigurationReferenceRelativePath = env.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -191,6 +223,8 @@
 		};
 		08AC4889300FF973006690D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 08AC4881300FF972006690D4 /* Grouply */;
+			baseConfigurationReferenceRelativePath = env.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -248,6 +282,8 @@
 		};
 		08AC488B300FF973006690D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 08AC4881300FF972006690D4 /* Grouply */;
+			baseConfigurationReferenceRelativePath = env.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -256,6 +292,7 @@
 				DEVELOPMENT_TEAM = QU2XD3L9GH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Grouply/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -280,6 +317,8 @@
 		};
 		08AC488C300FF973006690D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 08AC4881300FF972006690D4 /* Grouply */;
+			baseConfigurationReferenceRelativePath = env.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -288,6 +327,7 @@
 				DEVELOPMENT_TEAM = QU2XD3L9GH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Grouply/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -332,6 +372,27 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		08AC488D300FF9CA006690D4 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+			traits = (
+			);
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		08AC4892300FFA93006690D4 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08AC488D300FF9CA006690D4 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 08AC4877300FF972006690D4 /* Project object */;
 }
