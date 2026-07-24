@@ -45,6 +45,7 @@ struct SignUpView: View {
                     }
                 }
             }
+            .buttonStyle(.glassProminent)
             
             Spacer()
         }

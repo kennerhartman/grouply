@@ -46,6 +46,7 @@ struct SignInView: View {
                     }
                 }
             }
+            .buttonStyle(.glassProminent)
             
             Spacer()
         }

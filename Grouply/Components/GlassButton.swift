@@ -11,7 +11,7 @@ import SwiftUI
 struct GlassButton: View {
     let title: String
     var role: ButtonRole? = nil
-    var tint: Color
+    var tint: Color = .clear
     var action: () -> Void
     
     var body: some View {
@@ -20,10 +20,10 @@ struct GlassButton: View {
                 .font(.headline)
                 .bold()
                 .foregroundColor(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 14)
                 .contentShape(Rectangle())
-                .padding()
         }
-        .buttonStyle(.plain)
         .glassEffect(.regular.tint(self.tint).interactive())
     }
 }

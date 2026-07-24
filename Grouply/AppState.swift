@@ -17,6 +17,8 @@ class AppState {
         session != nil
     }
     
+    var groups: [Group] = []
+    
     init() {
         Task {
             await self.restoreSession()
