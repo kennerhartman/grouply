@@ -6,7 +6,6 @@
 //  Copyright © 2026 Kenner Hartman. All rights reserved.
 //
 
-
 struct GroupMember: Decodable {
     let user_id: String
     let role: String

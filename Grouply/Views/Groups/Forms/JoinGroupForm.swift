@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Observation
 import Supabase
 
 struct JoinGroupForm: View {
@@ -60,7 +61,8 @@ struct JoinGroupForm: View {
     }
 }
 
-struct JoinGroupFormViewModel {
+@Observable
+class JoinGroupFormViewModel {
     var id: String = ""
 }
 

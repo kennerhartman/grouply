@@ -16,8 +16,6 @@ protocol GroupsAPIProtocol {
     func updateGroup(id: String, newName: String, newDescription: String) async throws
     func deleteGroup(id: String) async throws
     func leaveGroup(groupId: String, userId: UUID) async throws
-    
-    func generateId() -> String
 }
 
 class GroupsAPI: GroupsAPIProtocol {
@@ -49,7 +47,7 @@ class GroupsAPI: GroupsAPIProtocol {
     }
     
     func createGroup(name: String, description: String) async throws {
-        let id: String = self.generateId()
+        let id: String = IDGenerator.generateId()
         
         try await supabase
             .from("groups")
@@ -107,17 +105,5 @@ class GroupsAPI: GroupsAPIProtocol {
             .eq("group_id", value: groupId)
             .eq("user_id", value: userId.uuidString)
             .execute()
-    }
-    
-    func generateId() -> String {
-        let characters = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789"
-        
-        var id = ""
-        
-        for _ in 1...7 {
-            id.append(characters.randomElement()!)
-        }
-        
-        return id
     }
 }

@@ -52,7 +52,7 @@ struct GroupCard: View {
                 
                 Spacer()
                 
-                Text(self.role)
+                Text(self.group.role(for: self.appState))
                     .font(.caption2)
                     .fontWeight(.semibold)
                     .foregroundColor(.secondary)
@@ -65,7 +65,7 @@ struct GroupCard: View {
         .frame(maxWidth: .infinity)
         .contentShape(.rect)
         .contextMenu {
-            if self.hasManageAccess {
+            if self.group.hasManageAccess(for: self.appState) {
                 Button {
                     self.isShowingGroupForm.toggle()
                 } label: {
@@ -87,7 +87,7 @@ struct GroupCard: View {
                 }
             }
             
-            if !self.isOwner {
+            if !self.group.isOwner(for: self.appState) {
                 Button(role: .destructive) {
                     Task {
                         do {
@@ -122,44 +122,6 @@ struct GroupCard: View {
         } catch {
             print("Failed to fetch groups: \(error)")
         }
-    }
-}
-
-extension GroupCard {
-    var user: GroupMember? {
-        guard let currentUserId = self.appState.session?.user.id.uuidString.lowercased() else {
-            return nil
-        }
-        
-        guard let member = self.group.groupMembers.first(where: { $0.user_id == currentUserId }) else {
-            return nil
-        }
-        
-        return member
-    }
-    
-    var role: String {
-        if let user = self.user {
-            return user.role.capitalized
-        }
-        
-        return "Unknown"
-    }
-    
-    var isOwner: Bool {
-        if let user = self.user {
-            return user.role == "owner"
-        }
-        
-        return false
-    }
-    
-    var hasManageAccess: Bool {
-        if let user = self.user {
-            return user.role == "owner" || user.role == "editor"
-        }
-        
-        return false
     }
 }
 

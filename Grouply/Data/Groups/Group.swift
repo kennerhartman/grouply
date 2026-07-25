@@ -6,6 +6,9 @@
 //  Copyright © 2026 Kenner Hartman. All rights reserved.
 //
 
+import Foundation
+import Supabase
+
 struct Group: Decodable, Identifiable {
     let id: String
     let name: String
@@ -41,5 +44,36 @@ struct Group: Decodable, Identifiable {
         self.description = description
         self.groupMembersCount = groupMembersCount
         self.groupMembers = groupMembers
+    }
+}
+
+extension Group {
+    func member(for appState: AppState) -> GroupMember? {
+        guard let currentUserId = appState.session?.user.id.uuidString.lowercased() else {
+            return nil
+        }
+        return self.groupMembers.first(where: { $0.user_id.lowercased() == currentUserId })
+    }
+    
+    func role(for appState: AppState) -> String {
+        if let member = self.member(for: appState) {
+            return member.role.capitalized
+        }
+        return "Unknown"
+    }
+    
+    func isOwner(for appState: AppState) -> Bool {
+        if let member = self.member(for: appState) {
+            return member.role.lowercased() == "owner"
+        }
+        return false
+    }
+    
+    func hasManageAccess(for appState: AppState) -> Bool {
+        if let member = self.member(for: appState) {
+            let role = member.role.lowercased()
+            return role == "owner" || role == "editor"
+        }
+        return false
     }
 }

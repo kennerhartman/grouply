@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Observation
 
 struct GroupForm: View {
     @Environment(\.dismiss) private var dismiss
@@ -89,12 +90,13 @@ struct GroupForm: View {
         do {
             self.appState.groups = try await GroupsAPI.shared.fetchGroups()
         } catch {
-            print("Unable to fetch groups: \(error)")
+            print("Failed to fetch groups: \(error)")
         }
     }
 }
 
-struct GroupFormViewModel {
+@Observable
+class GroupFormViewModel {
     let id: String?
     
     var name: String = ""

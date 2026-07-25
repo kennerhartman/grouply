@@ -60,7 +60,9 @@ struct GroupsView: View {
             } else {
                 ScrollView {
                     ForEach(self.appState.groups, id: \.id) { group in
-                        GroupCard(group: group)
+                        NavigationLink(destination: GroupView(group: group)) {
+                            GroupCard(group: group)
+                        }
                     }
                 }
             }
@@ -81,6 +83,7 @@ struct GroupsView: View {
         .sheet(isPresented: self.$isShowingProfileSheet) {
             ProfileView()
         }
+        .navigationTitle("Groups")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
