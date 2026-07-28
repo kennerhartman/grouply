@@ -62,6 +62,7 @@ struct GroupsView: View {
                     ForEach(self.appState.groups, id: \.id) { group in
                         NavigationLink(destination: GroupView(group: group)) {
                             GroupCard(group: group)
+                                .padding(.horizontal, 16)
                         }
                     }
                 }

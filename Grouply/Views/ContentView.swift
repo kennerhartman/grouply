@@ -10,8 +10,7 @@ import SwiftUI
 import Supabase
 
 struct ContentView: View {
-    @State private var appState = AppState()
-    @State private var user: User? = nil
+    @Environment(AppState.self) private var appState
     
     var body: some View {
         NavigationStack {
@@ -23,14 +22,19 @@ struct ContentView: View {
                 }
             }
         }
-        .environment(self.appState)
+        .onOpenURL { url in
+            self.appState.handleUniversalLink(for: url)
+        }
+        .onChange(of: self.appState.isAuthenticated) { _, isAuthenticated in
+            self.appState.processPendingJoin(isAuthenticated: isAuthenticated)
+        }
+        .onAppear {
+            self.appState.processPendingJoin(isAuthenticated: self.appState.isAuthenticated)
+        }
     }
-    
-    
 }
-
-
 
 #Preview {
     ContentView()
+        .environment(AppState())
 }

@@ -14,10 +14,18 @@ struct ActivityForm: View {
     @Environment(\.dismiss) private var dismiss
     
     let groupId: String
+    let activityToEdit: Activity?
     
-    @State private var model = ActivityFormViewModel()
+    @State private var model: ActivityFormViewModel
     @State private var isMapPresented: Bool = false
     
+    init(groupId: String, activityToEdit: Activity? = nil) {
+        self.groupId = groupId
+        self.activityToEdit = activityToEdit
+        
+        _model = State(initialValue: ActivityFormViewModel(activity: activityToEdit))
+    }
+
     var body: some View {
         NavigationStack {
             Form {
@@ -67,19 +75,37 @@ struct ActivityForm: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         Task {
-                            do {
-                                try await ActivitiesAPI.shared.createActivity(
-                                    activity: Activity(
-                                        name: self.model.name,
-                                        description: self.model.description,
-                                        group_id: self.groupId,
-                                        location_address: self.model.locationAddress,
-                                        location_url: self.model.locationUrl,
-                                        scheduled_at: self.model.scheduledTime
+                            if let activity = self.activityToEdit {
+                                do {
+                                    try await ActivitiesAPI.shared.updateActivity(
+                                        activity: Activity(
+                                            id: activity.id,
+                                            name: self.model.name,
+                                            description: self.model.description,
+                                            group_id: self.groupId,
+                                            location_address: self.model.locationAddress,
+                                            location_url: self.model.locationUrl,
+                                            scheduled_at: self.model.scheduledTime
+                                        )
                                     )
-                                )
-                            } catch {
-                                print("Failed to create activity: \(error)")
+                                } catch {
+                                    print("Failed to update activity: \(error)")
+                                }
+                            } else {
+                                do {
+                                    try await ActivitiesAPI.shared.createActivity(
+                                        activity: Activity(
+                                            name: self.model.name,
+                                            description: self.model.description,
+                                            group_id: self.groupId,
+                                            location_address: self.model.locationAddress,
+                                            location_url: self.model.locationUrl,
+                                            scheduled_at: self.model.scheduledTime
+                                        )
+                                    )
+                                } catch {
+                                    print("Failed to create activity: \(error)")
+                                }
                             }
                         }
                         
@@ -100,10 +126,18 @@ class ActivityFormViewModel {
     var scheduledTime: Date = Date()
     var locationAddress: String = ""
     var locationUrl: String = ""
+    
+    init(activity: Activity? = nil) {
+        if let activity = activity {
+            self.name = activity.name
+            self.description = activity.description
+            self.scheduledTime = activity.scheduled_at
+            self.locationAddress = activity.location_address
+            self.locationUrl = activity.location_url
+        }
+    }
 }
 
 #Preview {
     ActivityForm(groupId: "dUn3DXs")
-    
-//    MapView(model: .constant(ActivityFormViewModel()))
 }

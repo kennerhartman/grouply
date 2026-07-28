@@ -13,12 +13,10 @@ struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AppState.self) private var appState
     
-    @State private var user: User? = nil
-    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                if let user = self.user {
+                if let user = self.appState.currentUser {
                     HStack {
                         Image(systemName: "person.circle")
                             .resizable()
@@ -54,31 +52,6 @@ struct ProfileView: View {
                         Label("Cancel", systemImage: "xmark")
                     }
                 }
-            }
-        }
-        .onAppear {
-            Task {
-                await self.fetchUser()
-            }
-        }
-    }
-    
-    func fetchUser() async {
-        if let session = self.appState.session {
-            let id = session.user.id
-            
-            do {
-                let user: User = try await supabase
-                    .from("profiles")
-                    .select("first_name, last_name")
-                    .eq("id", value: id)
-                    .single()
-                    .execute()
-                    .value
-                
-                self.user = user
-            } catch {
-                print("Error fetching user: \(error)")
             }
         }
     }

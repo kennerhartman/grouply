@@ -17,53 +17,60 @@ struct GroupCard: View {
     let group: Group
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .center) {
-                Text(self.group.name)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                
-                Spacer()
-                
-                
-            }
-            .frame(maxWidth: .infinity)
-            
-            if let description = self.group.description, !description.isEmpty {
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-            }
-            
-            Divider()
-            
-            HStack {
-                HStack(spacing: 6) {
-                    Image(systemName: "person.2.fill")
-                        .font(.caption)
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(LinearGradient(colors: [.accentColor.opacity(0.8), .purple.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .frame(width: 44, height: 44)
                     
-                    Text(self.group.groupMembersCount.formatted())
+                    Image(systemName: "person.3.fill")
                         .font(.subheadline)
-                        .fontWeight(.medium)
+                        .foregroundColor(.white)
                 }
-                .foregroundColor(.secondary)
                 
-                Spacer()
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(self.group.name)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                    
+                    HStack(spacing: 4) {
+                        Image(systemName: "person.2")
+                            .font(.caption2)
+                        
+                        Text(self.groupMemebrsString)
+                            .font(.caption)
+                    }
+                    .foregroundColor(.secondary)
+                }
+                
+                Spacer(minLength: 4)
                 
                 Text(self.group.role(for: self.appState))
                     .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal, 10)
+                    .fontWeight(.bold)
+                    .foregroundColor(.accentColor)
+                    .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .glassEffect(in: .capsule)
             }
+            
+            Text(self.descriptionString)
+                .font(.subheadline)
+                .foregroundColor(self.group.description == nil || self.group.description?.isEmpty == true ? .secondary.opacity(0.5) : .secondary)
+                .lineLimit(2)
+                .truncationMode(.tail)
+                .frame(height: 38, alignment: .topLeading)
+            
+            Spacer()
         }
         .padding(16)
+        .frame(height: 140)
         .frame(maxWidth: .infinity)
         .contentShape(.rect)
+        .glassEffect(in: .rect(cornerRadius: 16))
         .contextMenu {
             if self.group.hasManageAccess(for: self.appState) {
                 Button {
@@ -103,7 +110,6 @@ struct GroupCard: View {
                 }
             }
         }
-        .glassEffect(in: .rect(cornerRadius: 16))
         .sheet(isPresented: self.$isShowingGroupForm) {
             GroupForm(
                 model: GroupFormViewModel(
@@ -122,6 +128,26 @@ struct GroupCard: View {
         } catch {
             print("Failed to fetch groups: \(error)")
         }
+    }
+}
+
+extension GroupCard {
+    var descriptionString: String {
+        guard let description = self.group.description, !description.isEmpty else {
+            return "No description provided."
+        }
+        
+        return description
+    }
+    
+    var groupMemebrsString: String {
+        let count = self.group.groupMembersCount
+        
+        if count == 1 {
+            return "\(count) member"
+        }
+        
+        return "\(count) members"
     }
 }
 

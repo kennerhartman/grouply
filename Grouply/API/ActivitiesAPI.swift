@@ -12,6 +12,7 @@ import Supabase
 protocol ActivitiesAPIProtocol {
     func fetchActivities(groupId: String) async throws -> [Activity]
     func createActivity(activity: Activity) async throws
+    func updateActivity(activity: Activity) async throws
     func deleteActivity(activityId: String) async throws
 }
 
@@ -45,6 +46,22 @@ class ActivitiesAPI: ActivitiesAPIProtocol {
                 "location_url": activity.location_url,
                 "scheduled_at": activity.scheduled_at.ISO8601Format()
             ])
+            .execute()
+    }
+    
+    func updateActivity(activity: Activity) async throws {
+        try await supabase
+            .from("activities")
+            .update([
+                "id": activity.id,
+                "name": activity.name,
+                "description": activity.description,
+                "group_id": activity.group_id,
+                "location_address": activity.location_address,
+                "location_url": activity.location_url,
+                "scheduled_at": activity.scheduled_at.ISO8601Format()
+            ])
+            .eq("id", value: activity.id)
             .execute()
     }
     

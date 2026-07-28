@@ -12,7 +12,8 @@ struct ActivityCard: View {
     let activity: Activity
     let hasManageAccess: Bool
     
-    var onAction: (() -> Void)?
+    var onEditAction: (() -> Void)?
+    var onDeleteAction: (() -> Void)?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -85,9 +86,7 @@ struct ActivityCard: View {
         .contextMenu {
             if self.hasManageAccess {
                 Button {
-                    // TODO: IMPLEMENT
-                    
-                    self.onAction?()
+                    self.onEditAction?()
                 } label: {
                     Label("Edit", systemImage: "pencil")
                 }
@@ -97,7 +96,7 @@ struct ActivityCard: View {
                         do {
                             try await ActivitiesAPI.shared.deleteActivity(activityId: self.activity.id)
                             
-                            self.onAction?()
+                            self.onDeleteAction?()
                         } catch {
                             print("Failed to delete activity: \(error)")
                         }

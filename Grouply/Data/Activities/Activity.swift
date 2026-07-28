@@ -39,8 +39,13 @@ struct Activity: Decodable, Identifiable {
         self.scheduled_at = try container.decode(Date.self, forKey: .scheduled_at)
     }
     
-    init(name: String, description: String, group_id: String, location_address: String, location_url: String, scheduled_at: Date) {
-        self.id = IDGenerator.generateId()
+    init(id: String? = nil, name: String, description: String, group_id: String, location_address: String, location_url: String, scheduled_at: Date) {
+        if let id = id {
+            self.id = id
+        } else {
+            self.id = IDGenerator.generateId()
+        }
+        
         self.name = name
         self.description = description
         self.group_id = group_id

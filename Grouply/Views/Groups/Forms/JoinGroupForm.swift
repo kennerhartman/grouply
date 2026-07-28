@@ -67,6 +67,6 @@ class JoinGroupFormViewModel {
 }
 
 #Preview {
-    GroupForm()
+    JoinGroupForm()
 }
 

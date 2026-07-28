@@ -52,6 +52,7 @@ extension Group {
         guard let currentUserId = appState.session?.user.id.uuidString.lowercased() else {
             return nil
         }
+        
         return self.groupMembers.first(where: { $0.user_id.lowercased() == currentUserId })
     }
     
@@ -59,6 +60,7 @@ extension Group {
         if let member = self.member(for: appState) {
             return member.role.capitalized
         }
+        
         return "Unknown"
     }
     
@@ -66,6 +68,7 @@ extension Group {
         if let member = self.member(for: appState) {
             return member.role.lowercased() == "owner"
         }
+        
         return false
     }
     
@@ -74,6 +77,7 @@ extension Group {
             let role = member.role.lowercased()
             return role == "owner" || role == "editor"
         }
+        
         return false
     }
 }
