@@ -64,7 +64,7 @@ struct GroupView: View {
                                 }
                             }
                         )
-                        .padding()
+                        .padding(.horizontal)
                     }
                 }
             }

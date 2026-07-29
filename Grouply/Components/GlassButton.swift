@@ -25,5 +25,6 @@ struct GlassButton: View {
                 .contentShape(Rectangle())
         }
         .glassEffect(.regular.tint(self.tint).interactive())
+        .buttonStyle(.plain)
     }
 }

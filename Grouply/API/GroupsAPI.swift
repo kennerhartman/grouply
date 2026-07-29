@@ -34,6 +34,7 @@ class GroupsAPI: GroupsAPIProtocol {
                   user_id,
                   role,
                   profiles(
+                    id,
                     first_name,
                     last_name
                   )

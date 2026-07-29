@@ -16,66 +16,70 @@ struct ActivityCard: View {
     var onDeleteAction: (() -> Void)?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .center) {
-                Text(self.activity.name)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-            
-            if !self.activity.description.isEmpty {
-                Text(self.activity.description)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-            }
-            
-            Divider()
-            
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 6) {
-                    Image(systemName: "calendar")
-                        .font(.caption)
+        NavigationLink {
+            ActivityDetailsView(activity: self.activity)
+        } label: {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .center) {
+                    Text(self.activity.name)
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
                     
-                    Text(self.activity.scheduled_at, style: .date)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                    
-                    Text("at")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    
-                    Text(self.activity.scheduled_at, style: .time)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
+                    Spacer()
                 }
-                .foregroundColor(.secondary)
+                .frame(maxWidth: .infinity)
                 
-                if !self.activity.location_address.isEmpty {
+                if !self.activity.description.isEmpty {
+                    Text(self.activity.description)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                }
+                
+                Divider()
+                
+                VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 6) {
-                        Image(systemName: "mappin.and.ellipse")
+                        Image(systemName: "calendar")
                             .font(.caption)
                         
-                        Text(self.activity.location_address)
+                        Text(self.activity.scheduled_at, style: .date)
                             .font(.subheadline)
-                            .lineLimit(1)
+                            .fontWeight(.medium)
                         
-                        Spacer()
+                        Text("at")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                         
-                        if let url = URL(string: self.activity.location_url) {
-                            Link(destination: url) {
-                                Image(systemName: "map.fill")
-                                    .font(.caption)
-                                    .padding(6)
-                                    .glassEffect(in: .circle)
-                            }
-                        }
+                        Text(self.activity.scheduled_at, style: .time)
+                            .font(.subheadline)
+                            .fontWeight(.medium)
                     }
                     .foregroundColor(.secondary)
+                    
+                    if !self.activity.location_address.isEmpty {
+                        HStack(spacing: 6) {
+                            Image(systemName: "mappin.and.ellipse")
+                                .font(.caption)
+                            
+                            Text(self.activity.location_address)
+                                .font(.subheadline)
+                                .lineLimit(1)
+                            
+                            Spacer()
+                            
+                            if let url = URL(string: self.activity.location_url) {
+                                Link(destination: url) {
+                                    Image(systemName: "map.fill")
+                                        .font(.caption)
+                                        .padding(6)
+                                        .glassEffect(in: .circle)
+                                }
+                            }
+                        }
+                        .foregroundColor(.secondary)
+                    }
                 }
             }
         }

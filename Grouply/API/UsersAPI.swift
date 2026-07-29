@@ -20,7 +20,7 @@ class UsersAPI: UsersAPIProtocol {
     func fetchUser(userId: String) async throws -> User {
         let user: User = try await supabase
             .from("profiles")
-            .select("first_name, last_name")
+            .select("*")
             .eq("id", value: userId)
             .single()
             .execute()
